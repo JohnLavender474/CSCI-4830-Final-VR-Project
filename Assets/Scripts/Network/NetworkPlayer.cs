@@ -1,17 +1,22 @@
 using System;
 using System.Collections;
 using Game;
+using GLTFast;
 using Network.Health___Damage;
-using Siccity.GLTFUtility;
+// TODO: using Siccity.GLTFUtility;
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.Networking;
+
+// TODO: using UnityEngine.Networking;
 
 namespace Network
 {
     [RequireComponent(typeof(NetworkObject))]
     public class NetworkPlayer : NetworkBehaviour
     {
+        private static readonly int CloseHandLeft = Animator.StringToHash("CloseHandLeft");
+        private static readonly int CloseHandRight = Animator.StringToHash("CloseHandRight");
+
         private const string AvatarSpine = "Hips/Spine";
         private const string AvatarNeck = AvatarSpine + "/Neck";
         private const string AvatarHead = AvatarNeck + "/Head";
@@ -19,7 +24,7 @@ namespace Network
         private const int MaxLives = 3;
         private const int MaxHealth = 100;
 
-        // TODO: rpm netcode sample
+        // TODO: rpm net-code sample
         /*
         private const string FULL_BODY_LEFT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/LeftEye";
         private const string FULL_BODY_RIGHT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/RightEye";
@@ -38,12 +43,13 @@ namespace Network
 
         // for now, avatar url is hardcoded; should allow player to change this value
         // in which case this will need to be a network variable
-        public string avatarUrl = "https://models.readyplayer.me/6570ff98869b42cd90a10bb6.glb";
+        public string defaultAvatarUrl = "https://models.readyplayer.me/6570ff98869b42cd90a10bb6.glb";
 
-        // the game object for the avatar
+        // the game object and animator for the avatar
         private GameObject _avatar;
+        // TODO: private RuntimeAnimatorController _avatarAnimatorController;
 
-        // TODO: rpm netcode sample
+        // TODO: rpm net-code sample
         /*
         [SerializeField] private Transform leftEye;
         [SerializeField] private Transform rightEye;
@@ -84,11 +90,10 @@ namespace Network
         // team number is assigned on spawn
         private readonly NetworkVariable<int> _team = new();
 
-        private void Awake()
+        private void Start()
         {
-            StartCoroutine(LoadAvatar());
-
-            // TODO: rpm netcode sample
+            StartCoroutine(LoadAvatar(defaultAvatarUrl));
+            // TODO: rpm net-code sample
             /*
             _animator = GetComponent<Animator>();
 
@@ -99,55 +104,83 @@ namespace Network
             */
         }
 
-        private void Update()
+        private void SetAvatarToRig()
         {
-            // avatar transforms are mapped to in-script transforms, NOT to rig reference transforms 
-            if (_avatar != null)
+            if (_avatar == null) return;
+
+            var avatarSpine = _avatar.transform.Find(AvatarSpine);
+            var avatarHead = _avatar.transform.Find(AvatarHead);
+            var avatarNeck = _avatar.transform.Find(AvatarNeck);
+            var avatarLeftHand = _avatar.transform.Find(AvatarSpine + "/LeftHand");
+            var avatarRightHand = _avatar.transform.Find(AvatarSpine + "/RightHand");
+            var avatarLeftEye = _avatar.transform.Find(AvatarHead + "/LeftEye");
+            var avatarRightEye = _avatar.transform.Find(AvatarHead + "/RightEye");
+
+            // set head and neck transforms
+            SetTransform(avatarHead, head);
+            SetTransform(avatarNeck, head);
+            avatarNeck.Translate(0f, -0.01f, 0f);
+            SetTransform(avatarSpine, head);
+            avatarSpine.Translate(0f, -0.02f, 0f);
+
+            // TODO:
+            /*
+            var neckXZ = avatarNeck.forward;
+            neckXZ.y = 0;
+            neckXZ.Normalize();
+
+            var headXZ = avatarHead.forward;
+            headXZ.y = 0;
+            headXZ.Normalize();
+
+            var headNeckOffset = Vector3.SignedAngle(neckXZ, headXZ, Vector3.up);
+
+            if (Mathf.Abs(headNeckOffset) > 40)
             {
-                var avatarHead = _avatar.transform.Find(AvatarHead);
-                var avatarNeck = _avatar.transform.Find(AvatarNeck);
-                var avatarLeftHand = _avatar.transform.Find(AvatarSpine + "/LeftHand");
-                var avatarRightHand = _avatar.transform.Find(AvatarSpine + "/RightHand");
-                var avatarLeftEye = _avatar.transform.Find(AvatarHead + "/LeftEye");
-                var avatarRightEye = _avatar.transform.Find(AvatarHead + "/RightEye");
-
-                // set head and neck transforms
-
-                SetTransform(avatarHead, head);
-
-                var neckOffset = new Vector3(0f, -0.015f, 0f);
-                SetTransform(avatarNeck, head, neckOffset);
-
-                var neckXZ = avatarNeck.forward;
-                neckXZ.y = 0;
-                neckXZ.Normalize();
-
-                var headXZ = avatarHead.forward;
-                headXZ.y = 0;
-                headXZ.Normalize();
-
-                var headNeckOffset = Vector3.SignedAngle(neckXZ, headXZ, Vector3.up);
-
-                if (Mathf.Abs(headNeckOffset) > 40)
-                {
-                    _avatar.transform.Rotate(Vector3.up, headNeckOffset * Time.deltaTime);
-                    avatarHead.rotation = head.rotation;
-                }
-
-                // set left and right eye transforms, and then move avatar to compensate for offset
-
-                var pos = (avatarLeftEye.position + avatarRightEye.position) / 2;
-                var offset = avatarHead.position - pos;
-                _avatar.transform.position = offset;
-
-                // set left hand and right hand positions
-
-                SetTransform(avatarLeftHand, leftHand);
-                SetTransform(avatarRightHand, rightHand);
+                _avatar.transform.Rotate(Vector3.up, headNeckOffset * Time.deltaTime);
             }
 
-            // if not the owner, then return early
+            // set left and right eye transforms, and then move avatar to compensate for offset
+
+            var pos = (avatarLeftEye.position + avatarRightEye.position) / 2;
+            var offset = avatarHead.position - pos;
+            _avatar.transform.position = offset;
+            */
+
+            // set left hand and right hand
+
+            // TODO: set hands to player
+            // SetTransform(avatarLeftHand, leftHand);
+            // SetTransform(avatarRightHand, rightHand);
+
+            // set the hands out of the game world and use the blue hands instead
+            // TODO: use avatar hands instead of blue hands?
+            avatarLeftHand.transform.position = new Vector3(-1000, -1000, -1000);
+            avatarRightHand.transform.position = new Vector3(-1000, -1000, -1000);
+
+            // TODO: if using animator as shown in prof J's lecture 10/31
+            // var handTracker = VRRigReferences.singleton.handTracker;
+            // var animator = _avatar.GetComponent<Animator>();
+            // animator.SetBool(CloseHandLeft, handTracker.IsLeftHandGripping());
+            // animator.SetBool(CloseHandRight, handTracker.IsRightHandGripping());
+            // avatarLeftHand.localScale = handTracker.isLeftHandTracked ? Vector3.one : Vector3.zero;
+            // avatarRightHand.localScale = handTracker.isRightHandTracked ? Vector3.one : Vector3.zero;
+        }
+
+        private void Update()
+        {
+            SetAvatarToRig();
+
+            // if not the owner, then return
             if (!IsOwner) return;
+
+            // if this is the owner, then move the avatar out of the game world
+            // so that it's rendering does not interfere with the player's view
+            // TODO:
+            /*
+            if (_avatar != null)
+                _avatar.transform.position = new Vector3(-1000, -1000, -1000);
+            */
 
             if (_damageTime.Value > 0f)
                 DecrementDamageTimeServerRpc(Time.deltaTime);
@@ -155,59 +188,61 @@ namespace Network
             var reference = VRRigReferences.singleton;
             SetTransform(root, reference.root);
             SetTransform(body, reference.body);
+
+            // TODO:
+            //    body doesn't go up or down with head, so do this instead?
+            //    this overrides the body's position by placing it directly under the head  
+            SetTransform(body, reference.head);
+            body.Translate(0f, -0.5f, 0f);
+
+            // TODO: use character controller instead?
+            // SetTransform(body, reference.characterController.transform, reference.characterController.center);                
             SetTransform(head, reference.head);
             SetTransform(leftHand, reference.leftHand);
             SetTransform(rightHand, reference.rightHand);
+
+            // if the owner, then disable the avatar meshes
+            foreach (var skinnedMeshRenderer in _avatar.GetComponentsInChildren<SkinnedMeshRenderer>())
+            {
+                skinnedMeshRenderer.enabled = false;
+            }
         }
 
         public void SetAvatar(string url)
         {
-            avatarUrl = url;
-            StartCoroutine(LoadAvatar());
+            StartCoroutine(LoadAvatar(url));
         }
 
-        private IEnumerator LoadAvatar()
+        private IEnumerator LoadAvatar(string targetAvatarUrl)
         {
-            /*
-            var temp = new GameObject
-            {
-                name = "avatar",
-                transform =
-                {
-                    parent = transform,
-                    localPosition = Vector3.zero,
-                    localRotation = Quaternion.identity
-                }
-            };
-            */
-
+            // TODO: this uses gltFast
             if (_avatar != null)
             {
                 Destroy(_avatar);
                 _avatar = null;
             }
 
-            // TODO: if we change from glt-utility to glt-fast, we need to replace the code below with this
+            var gltf = gameObject.AddComponent<GltfAsset>();
+            var importSettings = new ImportSettings
+            {
+                AnimationMethod = AnimationMethod.Mecanim
+            };
+            gltf.ImportSettings = importSettings;
+
+            var t = gltf.Load(targetAvatarUrl);
+            while (!t.IsCompleted)
+            {
+                yield return null;
+            }
+
+            _avatar = transform.Find("AvatarRoot").gameObject;
+            // TODO: GetComponent<Animator>().runtimeAnimatorController = controller;
+
+            yield return null;
+
+            // TODO: to use this code, remove Unity's gltFast package and re-import GltfUtility
             /*
-             GltfAsset gltf = gameObject.AddComponent<GltfAsset>();
-             ImportSetting importSettings = new ImportSetting();
-             importSettings.AnimationMethod = AnimationMethodType.Mecanim;
-             gltf.ImportSettings = importSettings;
-
-             var t = gltf.Load(avatarUrl);
-             while (!t.IsCompleted)
-             {
-                 yield return null;
-             }
-             if (t.IsCompletedSuccessfully) {
-                avatar = this.transform.Find("AvatarRoot").gameObject;
-                this.GateComponent<Animator>().runtimeAnimatorController = controller;
-             }
-
-             yield return null;
-             */
-
-            using var webRequest = UnityWebRequest.Get(avatarUrl);
+            using var webRequest = UnityWebRequest.Get(targetAvatarUrl);
             yield return webRequest.SendWebRequest();
 
             switch (webRequest.result)
@@ -228,6 +263,7 @@ namespace Network
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            */
         }
 
         public override void OnNetworkSpawn()
@@ -235,8 +271,13 @@ namespace Network
             Debug.Log("[NetworkPlayer] On network spawn called");
             base.OnNetworkSpawn();
 
+            // TODO:
+            //    first element in meshes to disable is the head mesh which
+            //    should always be disabled if the avatar is being rendered
+            meshToDisable[0].enabled = false;
+
             if (!IsOwner) return;
-            // TODO: rpm netcode sample
+            // TODO: rpm net-code sample
             /*
             avatarUrl.Value = InputUrl;
             LoadAvatar(InputUrl);
@@ -253,7 +294,7 @@ namespace Network
             _currentHealth.OnValueChanged += OnHealthChange;
             Game.singleton.timeRemaining.OnValueChanged += OnTimeRemainingChange;
 
-            // TODO: rpm netcode sample
+            // TODO: rpm net-code sample
             /*
             else if (Uri.IsWellFormedUriString(avatarUrl.Value.ToString(), UriKind.Absolute))
             {
@@ -456,7 +497,7 @@ namespace Network
             toSet.position = setFrom.position;
             toSet.position += offset;
             toSet.rotation = setFrom.rotation;
-            toSet.localScale = setFrom.localScale;
+            // toSet.localScale = setFrom.localScale;
         }
     }
 }

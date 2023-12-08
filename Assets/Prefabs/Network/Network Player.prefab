@@ -70,12 +70,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae503eb59c34b4817894bb8605f3423a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 2146377529639090045}
   playerSpawnsKey: Players
+  root: {fileID: 2146377529639090045}
   body: {fileID: 6203525086050400392}
   head: {fileID: 4849472364530661044}
   leftHand: {fileID: 4422683448822468471}
   rightHand: {fileID: 5321224442208324490}
+  defaultAvatarUrl: https://models.readyplayer.me/6570ff98869b42cd90a10bb6.glb
   meshToDisable:
   - {fileID: 4532145284850008228}
   - {fileID: 8743939709634495468}
@@ -86,14 +87,6 @@ MonoBehaviour:
   - {fileID: 7296187287017333238}
   damagedMaterial: {fileID: 2100000, guid: d91451ce282a24752b89dd7ba5ef9cc2, type: 2}
   damageDuration: 1
-  currentHealth:
-    m_InternalValue: 100
-  lives:
-    m_InternalValue: 3
-  damageTime:
-    m_InternalValue: 0
-  team:
-    m_InternalValue: 0
 --- !u!114 &5219760490550355942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1371,8 +1364,8 @@ Transform:
   m_GameObject: {fileID: 5699610918134205707}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: -0.3}
-  m_LocalScale: {x: 0.5, y: 0.65, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.45, z: -0.3}
+  m_LocalScale: {x: 0.5, y: 0.45, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2146377529639090045}

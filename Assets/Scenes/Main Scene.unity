@@ -591,6 +591,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5686134208185136530, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
   m_PrefabInstance: {fileID: 18038597}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &18038599 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2368749419795825841, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
+  m_PrefabInstance: {fileID: 18038597}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82ed36db4d497b4ead79ca35d261021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &18611160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,6 +1262,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 109434732395451517, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
   m_PrefabInstance: {fileID: 274987630}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &274987632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7263066586038132329, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+  m_PrefabInstance: {fileID: 274987630}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82ed36db4d497b4ead79ca35d261021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &277398715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,7 +1827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2329,8 +2351,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 693095395}
-  - component: {fileID: 693095397}
-  - component: {fileID: 693095396}
   - component: {fileID: 693095398}
   m_Layer: 0
   m_Name: Body
@@ -2348,62 +2368,12 @@ Transform:
   m_GameObject: {fileID: 693095394}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: -0.3}
+  m_LocalPosition: {x: 0, y: 0.65, z: 0}
   m_LocalScale: {x: 0.5, y: 0.65, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3462571325904984183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &693095396
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693095394}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &693095397
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693095394}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!136 &693095398
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8577,6 +8547,7 @@ GameObject:
   - component: {fileID: 8575046590931189096}
   - component: {fileID: 7062004111660082232}
   - component: {fileID: 8575046590931189097}
+  - component: {fileID: 8575046590931189098}
   m_Layer: 2
   m_Name: XR Rig
   m_TagString: Untagged
@@ -9617,9 +9588,27 @@ MonoBehaviour:
   timeRemainingText: {fileID: 1759580366}
   root: {fileID: 3462571325904984183}
   body: {fileID: 693095395}
+  characterController: {fileID: 8189171602897525443}
   head: {fileID: 2871854915777020203}
   leftHand: {fileID: 274987631}
   rightHand: {fileID: 18038598}
+  handTracker: {fileID: 8575046590931189098}
+--- !u!114 &8575046590931189098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3462571325904984180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2883b6a4dc4a8a88b1d127b22dc221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandAnimator: {fileID: 274987632}
+  rightHandAnimator: {fileID: 18038599}
+  isLeftHandTracked: 1
+  isRightHandTracked: 1
 --- !u!1 &9018578245225615084
 GameObject:
   m_ObjectHideFlags: 0
