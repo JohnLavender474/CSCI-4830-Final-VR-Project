@@ -2208,32 +2208,10 @@
             ]
         },
         {
-            "name": "New action map",
-            "id": "265966b0-d7fb-4f57-bc45-594c4e1dc9eb",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "615f4381-da23-44ef-b753-e0891b7604ea",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "b0a398bb-993e-4138-b096-f2a82fbc44dc",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "New control scheme",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "name": "Custom Actions",
+            "id": "a6e87e42-76d4-4b78-b258-c13b2a9bf745",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": [

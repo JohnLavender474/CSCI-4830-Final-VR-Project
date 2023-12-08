@@ -202,6 +202,7 @@ namespace Network
             SetTransform(rightHand, reference.rightHand);
 
             // if the owner, then disable the avatar meshes
+            if (_avatar == null) return;
             foreach (var skinnedMeshRenderer in _avatar.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
                 skinnedMeshRenderer.enabled = false;
